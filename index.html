@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Game</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        #game-container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #clickButton {
+            font-size: 20px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #clickButton:hover {
+            background-color: #217dbb;
+        }
+
+        #currency {
+            font-size: 24px;
+            margin-top: 10px;
+        }
+
+        #upgradeButton {
+            font-size: 20px;
+            padding: 10px 20px;
+            background-color: #27ae60;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #upgradeButton[disabled] {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        #upgradeButton:hover {
+            background-color: #1e9841;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <h1>Clicker Game</h1>
+        <p>Click the button to earn currency:</p>
+        <button id="clickButton">Click Me!</button>
+        <p id="currency">Current Currency: 0</p>
+        <button id="upgradeButton" disabled>Buy Upgrade (Cost: 10)</button>
+    </div>
+
+    <script>
+        let currency = 0;
+        let upgradeCost = 10;
+
+        const clickButton = document.getElementById("clickButton");
+        const currencyDisplay = document.getElementById("currency");
+        const upgradeButton = document.getElementById("upgradeButton");
+
+        clickButton.addEventListener("click", () => {
+            currency += 1;
+            currencyDisplay.textContent = `Current Currency: ${currency}`;
+            if (currency >= upgradeCost) {
+                upgradeButton.removeAttribute("disabled");
+            }
+        });
+
+        upgradeButton.addEventListener("click", () => {
+            if (currency >= upgradeCost) {
+                currency -= upgradeCost;
+                currencyDisplay.textContent = `Current Currency: ${currency}`;
+                upgradeCost *= 2;
+                upgradeButton.textContent = `Buy Upgrade (Cost: ${upgradeCost})`;
+            }
+        });
+    </script>
+</body>
+</html>
